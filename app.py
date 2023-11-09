@@ -1,17 +1,19 @@
+# imports from packages
 from flask import Flask, request, jsonify 
 
+# imports from my own code base
 from src.pipeline.predict_pipeline import PredictPipeline
 
+# importing the utility functions
+from src.utils import allowed_file
+
+# initializing app
 app = Flask(__name__)
 
-# You can change this to any folder on your system
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
+# initilizing the predict pipeline
 predict_pipeline = PredictPipeline()
 
+# home route
 @app.route("/")
 def index():
     home_page_res = {
@@ -20,6 +22,9 @@ def index():
     }
     return jsonify(home_page_res)
 
+
+# main open route to return marriage photos of the person in the picture
+# make sure there is only one frontal image of the person in the pic sent
 @app.route("/check-marital-status", methods=["POST"])
 def check_marital_status():
     if 'file' not in request.files:

@@ -1,6 +1,8 @@
-from setuptools import find_packages, setup 
+# imports from the packages
 from typing import List
+from setuptools import find_packages, setup 
 
+# initialization of constants
 HYPHEN_E_DOT = "-e ."
 
 def get_requirements(file_path:str)->List[str]:
