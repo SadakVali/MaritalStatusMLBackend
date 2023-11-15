@@ -155,3 +155,8 @@ cython_debug/
 logs
 FN_responses.pickle
 position.pickle
+temp 
+finalData
+Marriage Photos
+DB.ods
+training_meta_data.csv
