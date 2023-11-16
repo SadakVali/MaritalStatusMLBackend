@@ -9,7 +9,8 @@ TARGET_SIZE = (112, 112)
 NUM_OF_DIMS = 512 
 
 # Given input dataset
-INPUT_DATASET = Path("data/CleanData/")
+# INPUT_DATASET = Path("data/CleanData/")
+INPUT_DATASET = Path("data/training_data/")
 
 # Paths to save pickel files
 DB_FACE_PATHS_PATH = "artifacts/DB_FACE_PATHS.pickle"

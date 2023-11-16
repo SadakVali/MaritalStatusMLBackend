@@ -49,7 +49,7 @@ class PredictPipeline:
                 [self.DB_FACE_PATHS[idx_dis_pair[0]], idx_dis_pair[-1]]
                 for idx_dis_pair in neighbour_idx_dis_pairs_sorted_in_asc_ord
             ]
-            return neighbour_img_path_dis_pairs_sorted_in_asc_ord[1:] 
+            return neighbour_img_path_dis_pairs_sorted_in_asc_ord#[1:] 
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -62,7 +62,7 @@ class PredictPipeline:
                     entry_flag_dic[neigh_img_path.split("/")[-2]] = True
                     # result.append([neigh_img_path, dis])
                     result.append(neigh_img_path)
-            return result[:4] 
+            return [os.path.dirname(each).split("/")[-1] for each in result[:4]]
         except Exception as e:
             raise CustomException(e, sys)
 

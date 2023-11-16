@@ -160,3 +160,6 @@ finalData
 Marriage Photos
 DB.ods
 training_meta_data.csv
+artifactsOld/
+artifacts/DB_FACE_COORDINATES.pickle
+*.pickle
