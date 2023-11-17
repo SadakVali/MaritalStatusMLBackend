@@ -62,6 +62,7 @@ class PredictPipeline:
                     entry_flag_dic[neigh_img_path.split("/")[-2]] = True
                     # result.append([neigh_img_path, dis])
                     result.append(neigh_img_path)
+            # return {index : os.path.dirname(each).split("/")[-1] for index, each in enumerate(result[:4])}
             return [os.path.dirname(each).split("/")[-1] for each in result[:4]]
         except Exception as e:
             raise CustomException(e, sys)
