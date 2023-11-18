@@ -1,5 +1,6 @@
 # imports from packages
 from flask import Flask, request, jsonify 
+from flask_cors import CORS
 
 # imports from my own code base
 from src.pipeline.predict_pipeline import PredictPipeline
@@ -9,6 +10,7 @@ from src.utils import allowed_file
 
 # initializing app
 app = Flask(__name__)
+CORS(app)
 
 # initilizing the predict pipeline
 predict_pipeline = PredictPipeline()
@@ -27,12 +29,15 @@ def index():
 # make sure there is only one frontal image of the person in the pic sent
 @app.route("/check-marital-status", methods=["POST"])
 def check_marital_status():
+    print("One")
+    print(request.files.keys())
     if 'file' not in request.files:
         no_input_res = {
             "success": False, 
             "message": "Input Image was not delivered"
         }
         return jsonify(no_input_res)
+    print("Two")
     file = request.files["file"]
     if file.filename == '':
         no_input_res = {
@@ -40,13 +45,16 @@ def check_marital_status():
             "message": "Invalid filename"
         }
         return jsonify(no_input_res)
+    print("Three")
     if file and allowed_file(file.filename):
         results = predict_pipeline.predict(file)
+        print("Four")
         success_result_as_res = {
             "success": True, 
             "data": results
         }
-        return jsonify(success_result_as_res) 
+        return success_result_as_res 
+    print("Five")
     faillure_result_as_res = {
         "success": False, 
         "data": []
