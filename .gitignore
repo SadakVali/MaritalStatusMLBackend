@@ -163,11 +163,7 @@ training_meta_data.csv
 artifactsOld/
 artifacts/DB_FACE_COORDINATES.pickle
 *.pickle
-data
 notebooks
-finalData
-training_data
 CleanData
 *.ipynb
 marital_status
-data
