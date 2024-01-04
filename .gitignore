@@ -169,3 +169,5 @@ finalData
 training_data
 CleanData
 *.ipynb
+marital_status
+data
