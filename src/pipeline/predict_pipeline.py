@@ -1,8 +1,9 @@
 # imports from packages
 import os
-import cv2
+# import cv2
 import sys
 import numpy as np
+import tensorflow as tf
 import face_recognition
 
 # imports from my own code base
@@ -30,12 +31,23 @@ class PredictPipeline:
         try:
             # Read the file content from the post request endpoint
             file = file.read()
-            # Convert the file data from a byte string to a NumPy array
-            nparr = np.fromstring(file, np.uint8)
-            # Convert the NumPy array data to a BGR image file using OpenCV
-            return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            # Decode the image file using TensorFlow
+            image = tf.image.decode_image(file, channels=3)
+            # Convert the TensorFlow tensor to a NumPy array
+            return image.numpy()
         except Exception as e:
             raise CustomException(e, sys)
+
+    # def read_img_in_bgr_mode(self, file):
+    #     try:
+    #         # Read the file content from the post request endpoint
+    #         file = file.read()
+    #         # Convert the file data from a byte string to a NumPy array
+    #         nparr = np.fromstring(file, np.uint8)
+    #         # Convert the NumPy array data to a BGR image file using OpenCV
+    #         return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    #     except Exception as e:
+    #         raise CustomException(e, sys)
 
     def path_dis_processing(self, neighbour_idxs, distances):
         try:
