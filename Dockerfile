@@ -13,6 +13,6 @@ WORKDIR /app
 # Copy the application code into the container
 COPY . /app
 # Install Python dependencies within the virtual environment
-RUN conda install -n myenv pip install --no-cache-dir -r requirements.txt
+RUN conda run -n myenv pip install --no-cache-dir -r requirements.txt
 # Command to run the application using Gunicorn
 CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
