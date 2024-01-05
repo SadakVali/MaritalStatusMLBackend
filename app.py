@@ -1,3 +1,7 @@
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
+
 # imports from packages
 from flask import Flask, request, jsonify 
 from flask_cors import CORS

@@ -7,7 +7,7 @@ ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
 # install dependencies, and remove build artifacts
 RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
-    conda install -n myenv -c conda-forge tensorflow && \
+    conda install -n myenv -c conda-forge tensorflow-cpu && \
     conda clean --all --yes
 # Copy the application code into the container
 COPY . /app
@@ -19,4 +19,4 @@ EXPOSE $PORT
 # Command to run the application using Gunicorn
 # CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
 # CMD gunicorn --workers=8 --memory=8g --timeout=120 --bind 0.0.0.0:$PORT app:app
-CMD gunicorn --workers=8 --timeout=120 --bind 0.0.0.0:$PORT app:app
+CMD gunicorn --workers=8 --timeout=180 --bind 0.0.0.0:$PORT app:app

@@ -1,6 +1,7 @@
 # imports from packages
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 import tensorflow as tf
 # import cv2
 import sys
