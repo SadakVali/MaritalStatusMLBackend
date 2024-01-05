@@ -9,7 +9,7 @@ click==8.1.7
 deepface==0.0.80
 Deprecated==1.2.14
 dill==0.3.7
-dlib==19.24.2
+# dlib==19.24.2
 face-recognition==1.3.0
 face-recognition-models==0.3.0
 faiss-cpu==1.7.4
@@ -55,12 +55,12 @@ retina-face==0.0.13
 rsa==4.9
 six==1.16.0
 soupsieve==2.5
-tensorboard==2.13.0
-tensorboard-data-server==0.7.2
-tensorflow==2.13.1
-tensorflow-cpu==2.13.1
-tensorflow-estimator==2.13.0
-tensorflow-io-gcs-filesystem==0.34.0
+# tensorboard==2.13.0
+# tensorboard-data-server==0.7.2
+# tensorflow==2.13.1
+# tensorflow-cpu==2.13.1
+# tensorflow-estimator==2.13.0
+# tensorflow-io-gcs-filesystem==0.34.0
 termcolor==2.4.0
 tqdm==4.66.1
 typing_extensions==4.5.0

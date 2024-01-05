@@ -7,6 +7,7 @@ ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
 # install dependencies, and remove build artifacts
 RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
+    conda install -n myenv -c conda-forge tensorflow && \
     conda clean --all --yes
 # Copy the application code into the container
 COPY . /app
