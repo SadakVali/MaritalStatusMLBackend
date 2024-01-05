@@ -5,9 +5,9 @@ RUN conda create --name myenv python=3.8 && \
     echo "conda activate myenv" > ~/.bashrc
 ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
-# install dependencies, and remove build artifacts
+# Install TensorFlow dependencies
 RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
-    conda install -n myenv -c conda-forge tensorflow-cpu && \
+    conda install -n myenv -c conda-forge tensorflow && \
     conda clean --all --yes
 # Copy the application code into the container
 COPY . /app
@@ -15,8 +15,7 @@ COPY . /app
 WORKDIR /app
 # Install Python dependencies within the virtual environment
 RUN conda run -n myenv pip install --no-cache-dir -r requirements.txt
+# Expose the specified port
 EXPOSE $PORT
-# Command to run the application using Gunicorn
-# CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
-# CMD gunicorn --workers=8 --memory=8g --timeout=120 --bind 0.0.0.0:$PORT app:app
-CMD gunicorn --workers=8 --timeout=180 --bind 0.0.0.0:$PORT app:app
+# Command to run the application using Gunicorn with increased worker memory and different worker class (gevent)
+CMD gunicorn --workers=4 --timeout=120 --bind 0.0.0.0:$PORT -k gevent --worker-connections=1000 app:app
