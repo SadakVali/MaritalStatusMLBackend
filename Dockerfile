@@ -1,9 +1,12 @@
 # Use the latest Miniconda3 base image
 FROM continuumio/miniconda3:latest
-# Create and activate a virtual environment, install dependencies, and remove build artifacts
+# Create and activate a virtual environment
 RUN conda create --name myenv python=3.8 && \
-    echo "conda activate myenv" > ~/.bashrc && \
-    conda install -n myenv -c conda-forge cmake dlib libgcc && \
+    echo "conda activate myenv" > ~/.bashrc
+ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
+SHELL ["/bin/bash", "--login", "-c"]
+# install dependencies, and remove build artifacts
+RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
     conda clean --all --yes
 # Set the working directory
 WORKDIR /app
