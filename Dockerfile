@@ -21,4 +21,4 @@ EXPOSE $PORT
 # Command to run the application using Gunicorn
 # CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
 # CMD gunicorn --workers=8 --memory=8g --timeout=120 --bind 0.0.0.0:$PORT app:app
-CMD gunicorn --workers=8 --bind 0.0.0.0:$PORT app:app
+CMD gunicorn --workers=8 --m=8g --timeout=120 --bind 0.0.0.0:$PORT app:app
