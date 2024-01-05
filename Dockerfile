@@ -1,4 +1,7 @@
 FROM python:3.8
+# Create and activate a virtual environment
+RUN python -m venv /venv
+ENV PATH="/venv/bin:$PATH"
 # Update pip and setuptools
 RUN pip install --upgrade pip setuptools
 # Install necessary dependencies
@@ -9,7 +12,7 @@ RUN pip install cmake
 WORKDIR /app
 # Copy the application code into the container
 COPY . /app
-# Install Python dependencies
+# Install Python dependencies within the virtual environment
 RUN pip install -r requirements.txt
 # Expose the specified port
 EXPOSE $PORT
