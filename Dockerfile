@@ -8,11 +8,13 @@ SHELL ["/bin/bash", "--login", "-c"]
 
 # Install cmake using pip and dlib using conda
 RUN conda run -n myenv pip install cmake && \
-    conda install -n myenv -c conda-forge dlib && \
-    apt-get remove -y build-essential cmake g++ && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    conda install -n myenv -c conda-forge dlib
+
+# Install necessary dependencies using Conda
+RUN conda install -n myenv -c conda-forge libgcc
+
+# Remove Conda build artifacts
+RUN conda clean --all --yes
 
 # Set the working directory
 WORKDIR /app
@@ -21,7 +23,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Python dependencies within the virtual environment
-RUN pip install --no-cache-dir -r requirements.txt
+RUN conda run -n myenv pip install --no-cache-dir -r requirements.txt
 
 # Expose the specified port
 EXPOSE $PORT
