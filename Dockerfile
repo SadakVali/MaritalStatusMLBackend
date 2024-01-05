@@ -7,9 +7,8 @@ ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Install cmake using pip and dlib using conda
-RUN source activate myenv && \
-    pip install cmake && \
-    conda install -c conda-forge dlib && \
+RUN conda run -n myenv pip install cmake && \
+    conda install -n myenv -c conda-forge dlib && \
     apt-get remove -y build-essential cmake g++ && \
     apt-get autoremove -y && \
     apt-get clean && \
