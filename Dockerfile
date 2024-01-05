@@ -2,12 +2,13 @@ FROM continuumio/miniconda3:latest
 
 # Create and activate a virtual environment
 RUN conda create --name myenv python=3.8 && \
-    echo "source activate myenv" > ~/.bashrc
+    echo "conda activate myenv" > ~/.bashrc
 ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
 
 # Install cmake using pip and dlib using conda
-RUN pip install cmake && \
+RUN source activate myenv && \
+    pip install cmake && \
     conda install -c conda-forge dlib && \
     apt-get remove -y build-essential cmake g++ && \
     apt-get autoremove -y && \
