@@ -1,9 +1,11 @@
 # imports from packages
 import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+import tensorflow as tf
 # import cv2
 import sys
 import numpy as np
-import tensorflow as tf
+# from PIL import Image
 import face_recognition
 
 # imports from my own code base
@@ -45,6 +47,7 @@ class PredictPipeline:
     #         # Convert the file data from a byte string to a NumPy array
     #         nparr = np.fromstring(file, np.uint8)
     #         # Convert the NumPy array data to a BGR image file using OpenCV
+    #         # np.array(Image.open(requests.get(img, stream=True, timeout=60).raw).convert("BGR"))
     #         return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     #     except Exception as e:
     #         raise CustomException(e, sys)
