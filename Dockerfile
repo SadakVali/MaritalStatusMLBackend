@@ -1,8 +1,8 @@
 # Use the latest Miniconda3 base image
 FROM continuumio/miniconda3:latest
 # # Install system dependencies
-RUN apt-get update && apt-get install -y python3-opencv
-RUN pip install opencv-python
+RUN apt-get update && apt-get install -y python3-opencv-headless
+RUN pip install opencv-python-headless
 # Create and activate a virtual environment
 RUN conda create --name myenv python=3.8 && \
     echo "conda activate myenv" > ~/.bashrc
@@ -20,4 +20,4 @@ RUN conda run -n myenv pip install --no-cache-dir -r requirements.txt
 EXPOSE $PORT
 # Command to run the application using Gunicorn
 # CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
-CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT app:app
+CMD gunicorn --workers=8 --memory=8g --timeout=120 --bind 0.0.0.0:$PORT app:app
