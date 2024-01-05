@@ -3,6 +3,8 @@ FROM python:3.8
 RUN pip install --upgrade pip setuptools
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y cmake build-essential
+# Install CMake
+RUN pip install cmake
 # Set the working directory
 WORKDIR /app
 # Copy the application code into the container
