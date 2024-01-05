@@ -18,4 +18,4 @@ RUN conda run -n myenv pip install --no-cache-dir -r requirements.txt
 # Expose the specified port
 EXPOSE $PORT
 # Command to run the application using Gunicorn with increased worker memory and different worker class (gevent)
-CMD gunicorn --workers=4 --timeout=120 --bind 0.0.0.0:$PORT -k gevent --worker-connections=1000 app:app
+CMD gunicorn --workers=4 --timeout=120 -m=8g --bind 0.0.0.0:$PORT -k gevent --worker-connections=1000 app:app
