@@ -1,21 +1,18 @@
-FROM python:3.8
+FROM continuumio/miniconda3:latest
 
 # Create and activate a virtual environment
-RUN python -m venv /venv
-ENV PATH="/venv/bin:$PATH"
+RUN conda create --name myenv python=3.8 && \
+    echo "source activate myenv" > ~/.bashrc
+ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
+SHELL ["/bin/bash", "--login", "-c"]
 
-# Update pip and setuptools
-RUN pip install --upgrade pip setuptools
-
-# Install necessary dependencies including C++ compilers, CMake, Boost, BLAS, LAPACK, libjpeg, and libpng
-RUN apt-get update && \
-    apt-get install -y build-essential cmake g++ \
-                       libboost-all-dev libblas-dev liblapack-dev \
-                       libjpeg-dev libpng-dev
-
-# Install CMake
-RUN pip install cmake
-RUN pip install dlib
+# Install cmake using pip and dlib using conda
+RUN pip install cmake && \
+    conda install -c conda-forge dlib && \
+    apt-get remove -y build-essential cmake g++ && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /app
@@ -24,10 +21,10 @@ WORKDIR /app
 COPY . /app
 
 # Install Python dependencies within the virtual environment
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the specified port
 EXPOSE $PORT
 
 # Command to run the application using Gunicorn
-CMD gunicorn --workers=4 --bind 0.0.0.0:$PORT app:app
+CMD ["gunicorn", "--workers=4", "--bind", "0.0.0.0:$PORT", "app:app"]
