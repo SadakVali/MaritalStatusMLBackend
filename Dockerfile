@@ -1,9 +1,8 @@
 # Use the latest Miniconda3 base image
 FROM continuumio/miniconda3:latest
 # # Install system dependencies
-RUN apt-get update && apt-get install libgl1 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y opencv-python-headless
+RUN pip install opencv-python-headless
 # Create and activate a virtual environment
 RUN conda create --name myenv python=3.8 && \
     echo "conda activate myenv" > ~/.bashrc
