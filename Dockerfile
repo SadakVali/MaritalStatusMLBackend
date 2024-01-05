@@ -6,7 +6,7 @@ RUN conda create --name myenv python=3.8 && \
 ENV PATH="/opt/conda/envs/myenv/bin:$PATH"
 SHELL ["/bin/bash", "--login", "-c"]
 # install dependencies, and remove build artifacts
-RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
+RUN conda install -n myenv -c conda-forge cmake dlib libgcc libgl ffmpeg libsm6 libxext6 && \
     conda clean --all --yes
 # Copy the application code into the container
 COPY . /app
