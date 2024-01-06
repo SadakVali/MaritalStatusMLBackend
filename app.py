@@ -1,7 +1,3 @@
-import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
-
 # imports from packages
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
@@ -61,10 +57,10 @@ def check_marital_status():
     return jsonify(faillure_result_as_res) 
 
 
-if __name__ == "__main__":
-    # http://127.0.0.1:5000/
-    app.run(
-        host = "0.0.0.0", 
-        port = 5000, 
-        debug = True
-    )
+# if __name__ == "__main__":
+#     # http://127.0.0.1:5000/
+#     app.run(
+#         host = "0.0.0.0", 
+#         port = 5000, 
+#         debug = True
+#     )

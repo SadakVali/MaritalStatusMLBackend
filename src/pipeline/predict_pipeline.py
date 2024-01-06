@@ -1,9 +1,6 @@
 # imports from packages
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
-import tensorflow as tf
-# import cv2
+import cv2
 import sys
 import numpy as np
 # from PIL import Image
@@ -34,24 +31,13 @@ class PredictPipeline:
         try:
             # Read the file content from the post request endpoint
             file = file.read()
-            # Decode the image file using TensorFlow
-            image = tf.image.decode_image(file, channels=3)
-            # Convert the TensorFlow tensor to a NumPy array
-            return image.numpy()
+            # Convert the file data from a byte string to a NumPy array
+            nparr = np.fromstring(file, np.uint8)
+            # Convert the NumPy array data to a BGR image file using OpenCV
+            # np.array(Image.open(requests.get(img, stream=True, timeout=60).raw).convert("BGR"))
+            return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         except Exception as e:
             raise CustomException(e, sys)
-
-    # def read_img_in_bgr_mode(self, file):
-    #     try:
-    #         # Read the file content from the post request endpoint
-    #         file = file.read()
-    #         # Convert the file data from a byte string to a NumPy array
-    #         nparr = np.fromstring(file, np.uint8)
-    #         # Convert the NumPy array data to a BGR image file using OpenCV
-    #         # np.array(Image.open(requests.get(img, stream=True, timeout=60).raw).convert("BGR"))
-    #         return cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    #     except Exception as e:
-    #         raise CustomException(e, sys)
 
     def path_dis_processing(self, neighbour_idxs, distances):
         try:

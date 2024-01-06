@@ -1,7 +1,5 @@
 # imports from packages
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 import sys
 import faiss
 import numpy as np

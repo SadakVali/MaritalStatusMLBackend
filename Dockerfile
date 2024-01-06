@@ -9,6 +9,9 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN conda install -n myenv -c conda-forge cmake dlib libgcc && \
     conda install -n myenv -c conda-forge tensorflow-cpu && \
     conda clean --all --yes
+# Install OpenCV
+RUN apt-get update && apt-get install -y python3-opencv
+RUN pip install opencv-python
 # Copy the application code into the container
 COPY . /app
 # Set the working directory
